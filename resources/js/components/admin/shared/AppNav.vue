@@ -140,6 +140,9 @@ export default {
           { title: 'Eventos', icon: 'map', to: {name: 'evento'}, exact: false }
         ],
         [
+          { title: 'Agenda', icon: 'calendar_today', to: {name: 'agenda'}, exact: false }
+        ],
+        [
           { title: 'Logout', icon: 'power_settings_new', action: this.logout }
         ]
       ]
