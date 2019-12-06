@@ -14,7 +14,7 @@ class EventoController extends Controller
      */
     public function index()
     {
-        return Evento::get();
+        return Evento::with('lugar', 'sector', 'delegado')->get();
     }
 
     /**

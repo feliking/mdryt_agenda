@@ -80,6 +80,16 @@ export default {
         align: "center"
       },
       {
+        text: "Actividad",
+        value: "actividad",
+        align: "center"
+      },
+      {
+        text: "Lugar",
+        value: "lugar.nombre",
+        align: "center"
+      },
+      {
         text: "Opciones",
         align: "center",
         sortable: false,
@@ -102,6 +112,7 @@ export default {
       try {
         let res = await axios.get("api/evento")
         this.table = res.data;
+        console.log(this.table)
         this.loading = false
       } catch (e) {
         console.log(e);

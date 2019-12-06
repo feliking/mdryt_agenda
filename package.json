@@ -33,6 +33,7 @@
   "dependencies": {
     "material-design-icons-iconfont": "^5.0.1",
     "print-js": "^1.0.63",
-    "vue-moment": "^4.0.0"
+    "vue-moment": "^4.0.0",
+    "vuetify-datetime-picker": "^2.1.1"
   }
 }

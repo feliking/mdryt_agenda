@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuetify, { VSnackbar, VBtn, VIcon } from 'vuetify/lib'
 import VuetifyToast from 'vuetify-toast-snackbar'
 
+import es from 'vuetify/es5/locale/es'
+
 Vue.use(Vuetify, {
   components: {
     VSnackbar,
@@ -12,7 +14,8 @@ Vue.use(Vuetify, {
 Vue.use(VuetifyToast)
 
 export default new Vuetify({
-  theme: {
-    dark: true,
+  lang: {
+    locales: { es },
+    current: 'es',
   },
 })

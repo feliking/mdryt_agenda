@@ -6,6 +6,9 @@ import store from '~/store/index'
 import App from '$comp/App'
 import '~/plugins/index'
 import vuetify from '~/plugins/vuetify'
+import DatetimePicker from 'vuetify-datetime-picker'
+
+Vue.use(DatetimePicker)
 
 export const app = new Vue({
   router,

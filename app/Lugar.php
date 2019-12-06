@@ -9,4 +9,8 @@ class Lugar extends Model
 {
     use SoftDeletes;
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+
+    public function evento(){
+        $this->belongsTo(Evento::class);
+    }
 }

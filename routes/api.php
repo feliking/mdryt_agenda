@@ -41,7 +41,7 @@ Route::group(['middleware' => ['jwt']], function() {
     Route::apiResource('institucion', 'InstitucionController');
     Route::get('institucion/fill/{param}', 'InstitucionController@fill');
 
-    Route::apiResource('evento', 'EventoAcademicaaController');
+    Route::apiResource('evento', 'EventoController');
     Route::get('evento/fill/{param}', 'EventoController@fill');
 });
 

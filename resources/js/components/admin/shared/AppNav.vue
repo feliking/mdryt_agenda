@@ -122,9 +122,6 @@ export default {
           { title: 'Profile', icon: 'person', to: {name: 'profile'}, exact: false }
         ],
         [
-          { title: 'Departamentos', icon: 'map', to: {name: 'departamento'}, exact: false }
-        ],
-        [
           { title: 'Sectores', icon: 'map', to: {name: 'sector'}, exact: false }
         ],
         [
