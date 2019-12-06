@@ -121,7 +121,7 @@ export default {
       let newDate = new moment(this.date).add(-1, 'days').format('YYYY-MM-DD'); 
       this.date = newDate;
       this.getAgendaDia();
-    }
+    },   
   }
 };
 </script>

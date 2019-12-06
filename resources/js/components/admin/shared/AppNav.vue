@@ -119,7 +119,7 @@ export default {
     navigation() {
       this.items = [
         [
-          { title: 'Profile', icon: 'person', to: {name: 'profile'}, exact: false }
+          { title: 'Perfil', icon: 'person', to: {name: 'profile'}, exact: false }
         ],
         // [
         //   { title: 'Departamentos', icon: 'map', to: {name: 'departamento'}, exact: false }
@@ -143,7 +143,7 @@ export default {
           { title: 'Agenda', icon: 'calendar_today', to: {name: 'agenda'}, exact: false }
         ],
         [
-          { title: 'Logout', icon: 'power_settings_new', action: this.logout }
+          { title: 'Salir', icon: 'power_settings_new', action: this.logout }
         ]
       ]
     }
