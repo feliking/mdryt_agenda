@@ -1,6 +1,15 @@
 <template>
 <v-container>
   <v-row>
+    <v-progress-linear
+        :active="loading"
+        :indeterminate="loading"
+        absolute
+        top
+        color="blue lighten-2"
+      ></v-progress-linear>
+  </v-row>
+  <v-row>
     <v-col cols="3">
           <v-btn class="mx-2" fab dark small color="blue darken-3" v-on:click="substract()">
       <v-icon dark>keyboard_arrow_left</v-icon>
@@ -17,14 +26,14 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="date"
+            v-model="FormattedDate"
             label="Seleccionar fecha"
             prepend-icon="event"
             readonly
             v-on="on"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="date" @input="menu2 = false" @change="getAgendaDia()"></v-date-picker>
+        <v-date-picker v-model="date" @input="menu2 = false" dateFormat="dd-MM-yyyy" @change="getAgendaDia()"></v-date-picker>
       </v-menu>
     </v-col>
     <v-col cols="3">
@@ -49,12 +58,12 @@
       <v-spacer></v-spacer>
       <v-btn
         icon
-        @click="show=!show">
-        <v-icon>{{ show ? 'mdi-chevron-up': 'mdi-chevron-down'}}</v-icon>
+        @click="evento.show=!evento.show">
+        <v-icon>{{ evento.show ? 'mdi-chevron-up': 'mdi-chevron-down'}}</v-icon>
       </v-btn>
     </v-card-actions>
     <v-expand-transition>
-      <div v-show="show">
+      <div v-show="evento.show">
         <v-divider></v-divider>
         <v-card-text>
           Sector: {{evento.sector.nombre}}
@@ -64,6 +73,13 @@
           Telefono: {{evento.telefono}}
           <br>
           Observaciones: {{evento.observaciones}}
+          <br>
+          Referencias:
+          <br>
+          <span v-for="refs in evento.referencia_apoyo" v-bind:key="refs.telefono">
+            {{refs.nombre}} - {{refs.unidad}} - {{refs.telefono}}
+            <br>
+          </span>
         </v-card-text>
       </div>
     </v-expand-transition>
@@ -90,7 +106,6 @@ export default {
   },
   data: () => ({
     bus: new Vue(),
-    show: false,
     search: "",
     loading: true,
     eventos: [],
@@ -98,16 +113,25 @@ export default {
       menu: false,
       menu2: false,
   }),
-  computed: {},
+  computed: {
+    FormattedDate () {
+        return this.date ? moment(this.date).format('DD-MM-YYYY') : '';
+      },
+  },
   mounted() {
     this.getAgendaDia();
   },
   methods: {
     async getAgendaDia() {
+      this.loading = true;
       try {
         let res = await axios.get("api/eventos/getAgendaDia?fecha="+this.date)
+        await res.data.forEach(elem =>{
+          elem.show=false;
+          elem.referencia_apoyo = JSON.parse(elem.referencia_apoyo);
+        });
         this.eventos = res.data;
-        this.loading = false
+        this.loading = false;
       } catch (e) {
         console.log(e);
       }

@@ -16,7 +16,7 @@ export default [
   ...applyRules(['auth'], [
     { path: '', component: require('$comp/admin/AdminWrapper').default, children:
       [
-        { path: '', name: 'index', redirect: { name: 'profile' } },
+        { path: '', name: 'index', redirect: { name: 'agenda' } },
         { path: 'profile', component: require('$comp/admin/profile/ProfileWrapper').default, children:
           [
             { path: '', name: 'profile', component: require('$comp/admin/profile/Profile').default },
@@ -32,7 +32,7 @@ export default [
       ]
     },
   ]),
-  { path: '*', redirect: { name: 'index' } }
+  { path: '*', redirect: { name: 'agenda' } }
 ]
 
 function applyRules(rules, routes) {
