@@ -33,19 +33,19 @@
   </v-btn>
     </v-col>
   </v-row>
-<v-timeline align-top dense>
+<v-timeline align-top dense v-if="eventos.length!=0">
   <v-timeline-item v-for="evento in eventos" color="blue darken-2" small v-bind:key="evento.id">
     <v-card max-width="344">
     <v-card-title>
         {{evento.actividad}}
     </v-card-title>
     <v-card-subtitle>
-      lugar: salon gandarillas ministerio de desarrollo
+      lugar: {{evento.institucion.nombre}} - {{evento.institucion.direccion}}
       <br>
-      Fecha y hora: 10-10-2019 14:30
+      hora: {{evento.fecha_hora | moment("H:mm a")}}
     </v-card-subtitle>
     <v-card-actions>
-      <v-btn text>ver mas</v-btn>
+      Delegado: {{evento.delegado.nombre}}
       <v-spacer></v-spacer>
       <v-btn
         icon
@@ -57,13 +57,22 @@
       <div v-show="show">
         <v-divider></v-divider>
         <v-card-text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ratione numquam mollitia id magnam laborum expedita magni, eveniet, laboriosam minima, voluptas repellendus et sit? Deserunt minima laborum ipsum facere accusantium?
+          Sector: {{evento.sector.nombre}}
+          <br>
+          Lugar: {{evento.lugar.nombre}}
+          <br>
+          Telefono: {{evento.telefono}}
+          <br>
+          Observaciones: {{evento.observaciones}}
         </v-card-text>
       </div>
     </v-expand-transition>
   </v-card>
   </v-timeline-item>
 </v-timeline>
+<v-alert type="info" v-if="eventos.length==0">
+      No hay eventos para este dia .!
+</v-alert>
 </v-container>
   
 </template>

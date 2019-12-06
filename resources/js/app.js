@@ -9,7 +9,7 @@ import vuetify from '~/plugins/vuetify'
 import DatetimePicker from 'vuetify-datetime-picker'
 
 Vue.use(DatetimePicker)
-
+Vue.use(require('vue-moment'));
 export const app = new Vue({
   router,
   store,
