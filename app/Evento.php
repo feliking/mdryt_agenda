@@ -10,19 +10,19 @@ class Evento extends Model
     use SoftDeletes;
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
-    public function lugares(){
-        $this->hasMany(Lugar::class);
+    public function lugar(){
+        return $this->belongsTo(Lugar::class);
     }
 
-    public function delegados(){
-        $this->hasMany(Delegado::class);
+    public function delegado(){
+        return $this->belongsTo(Delegado::class);
     }
 
-    public function sectores(){
-        $this->hasMany(Sector::class);
+    public function sector(){
+        return $this->belongsTo(Sector::class);
     }
 
-    public function instituciones(){
-        $this->hasMany(Sector::class);
+    public function institucion(){
+        return $this->belongsTo(Institucion::class);
     }
 }
