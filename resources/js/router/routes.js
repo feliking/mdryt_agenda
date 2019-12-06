@@ -23,7 +23,6 @@ export default [
             { path: 'edit', name: 'profile-edit', component: require('$comp/admin/profile/edit/ProfileEdit').default }
           ]
         },
-        { path: 'departamentos', name: 'departamento', component: require('$comp/admin/departamento/Index').default },
         { path: 'lugares', name: 'lugar', component: require('$comp/admin/lugar/Index').default },
         { path: 'sectores', name: 'sector', component: require('$comp/admin/sector/Index').default },
         { path: 'delegados', name: 'delegado', component: require('$comp/admin/delegado/Index').default },
