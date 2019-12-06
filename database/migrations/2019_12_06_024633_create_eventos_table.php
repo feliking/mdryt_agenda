@@ -29,7 +29,7 @@ class CreateEventosTable extends Migration
             $table->integer('delegado_id')->unsigned();
             $table->foreign('delegado_id')->references('id')->on('delegados');
             $table->string('observaciones')->nullable();
-            $table->timestamp('fecha_hora');
+            $table->string('fecha_hora');
             $table->timestamps();
             $table->softDeletes();
         });

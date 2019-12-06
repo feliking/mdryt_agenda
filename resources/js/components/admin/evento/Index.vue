@@ -35,7 +35,7 @@
       loading-text="Cargando... Espere por favor"
       :single-expand="singleExpand"
       :expanded.sync="expanded"
-      item-key="name"
+      item-key="id"
       show-expand
     >
       <template v-slot:expanded-item="{ headers, item }">
@@ -89,7 +89,7 @@
                   </tr>
                   <tr>
                     <td><strong>Fecha y hora: </strong></td>
-                    <td>{{ formatDate(item.fecha_hora) }}</td>                    
+                    <td>{{ item.fecha_hora | moment("DD/MM/YYYY H:mm a") }}</td>                    
                   </tr>
                   <tr>
                     <td><strong>Observaciones: </strong></td>
@@ -162,7 +162,11 @@ export default {
     expanded: [],
     singleExpand: false,
   }),
-  computed: {},
+  computed: {
+    FormattedDate () {
+      return this.date ? moment(this.date).format('DD-MM-YYYY') : '';
+    },
+  },
   mounted() {
     this.getTable();
     this.bus.$on("closeDialog", () => {
