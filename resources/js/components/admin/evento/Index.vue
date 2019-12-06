@@ -70,7 +70,7 @@
                   </tr>
                   <tr>
                     <td><strong>Fecha y hora: </strong></td>
-                    <td>{{ item.fecha_hora }}</td>
+                    <td>{{ formatDate(item.fecha_hora) }}</td>                    
                   </tr>
                   <tr>
                     <td><strong>Observaciones: </strong></td>
@@ -167,6 +167,9 @@ export default {
     async removeItem(item) {
       this.bus.$emit("openDialogRemove", `api/evento/${item.id}`);      
     },
+    formatDate(date){
+      return this.$moment(date).format("DD/MM/YYYY hh:mm")
+    }, 
   }
 };
 </script>

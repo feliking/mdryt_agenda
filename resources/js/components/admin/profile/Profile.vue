@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h2 class="mb-4 primary--text headline">Your Profile</h2>
+    <h2 class="mb-4 primary--text headline">Tu perfil</h2>
 
     <v-card>
       <v-card-text>
         <v-text-field
-          label="Name"
+          label="Nombre"
           v-model="user.name"
           filled
           readonly

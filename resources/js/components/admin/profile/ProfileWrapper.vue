@@ -32,8 +32,8 @@ export default {
   methods: {
     navigation() {
       this.items = [
-        { title: 'View', icon: 'visibility', to: { name: 'profile' } },
-        { title: 'Edit', icon: 'edit', to: { name: 'profile-edit' } },
+        { title: 'Ver', icon: 'visibility', to: { name: 'profile' } },
+        { title: 'Editar', icon: 'edit', to: { name: 'profile-edit' } },
       ]
     }
   }
