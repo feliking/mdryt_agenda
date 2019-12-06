@@ -28,6 +28,7 @@ export default [
         { path: 'delegados', name: 'delegado', component: require('$comp/admin/delegado/Index').default },
         { path: 'eventos', name: 'evento', component: require('$comp/admin/evento/Index').default },
         { path: 'instituciones', name: 'institucion', component: require('$comp/admin/institucion/Index').default },
+        { path: 'agenda', name: 'agenda', component: require('$comp/admin/agenda/Index').default}
       ]
     },
   ]),
