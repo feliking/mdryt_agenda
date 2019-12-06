@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar>
-        <v-toolbar-title>Instituciones</v-toolbar-title>
+        <v-toolbar-title >Instituciones</v-toolbar-title>
         <v-spacer></v-spacer>        
         <v-divider
           class="mx-2"
@@ -32,28 +32,16 @@
       :search="search"
       class="elevation-1"
       :loading="loading" 
-      loading-text="Cargando... Espere por favor"
-    >
+      loading-text="Cargando... Espere por favor" >
       <template v-slot:item.action="{ item }">
-        <v-icon
-          small
-          class="mr-2"
-          @click="editItem(item)"
-        >
-          edit
-        </v-icon>
-        <v-icon
-          small
-          @click="removeItem(item)"
-        >
-          delete
-        </v-icon>
+        <v-icon small class="mr-2" @click="editItem(item)" flat icon color="indigo" >edit</v-icon>
+        <v-icon small @click="removeItem(item)" flat icon color="red darken-3" >delete </v-icon>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="fa fa-times">
         Tu Busqueda de "{{ search }}" no encontró resultados.
       </v-alert>
       <template slot="no-data">
-        <v-alert slot="no-results" :value="true" color="info" icon="fa fa-times">
+        <v-alert slot="no-results" :value="true" color="info" icon="fa fa-times" class="white--text"> 
           Sin resultados.
         </v-alert>
       </template>

@@ -121,23 +121,23 @@ export default {
         [
           { title: 'Profile', icon: 'person', to: {name: 'profile'}, exact: false }
         ],
+        // [
+        //   { title: 'Departamentos', icon: 'map', to: {name: 'departamento'}, exact: false }
+        // ],
         [
-          { title: 'Departamentos', icon: 'map', to: {name: 'departamento'}, exact: false }
-        ],
-        [
-          { title: 'Sectores', icon: 'map', to: {name: 'sector'}, exact: false }
+          { title: 'Sectores', icon: 'storefront', to: {name: 'sector'}, exact: false }
         ],
         [
           { title: 'Lugares', icon: 'map', to: {name: 'lugar'}, exact: false }
         ],
         [
-          { title: 'Delegados', icon: 'map', to: {name: 'delegado'}, exact: false }
+          { title: 'Delegados', icon: 'group', to: {name: 'delegado'}, exact: false }
         ],
         [
-          { title: 'Institución', icon: 'map', to: {name: 'institucion'}, exact: false }
+          { title: 'Institución', icon: 'apartment', to: {name: 'institucion'}, exact: false }
         ],
         [
-          { title: 'Eventos', icon: 'map', to: {name: 'evento'}, exact: false }
+          { title: 'Eventos', icon: 'event_available', to: {name: 'evento'}, exact: false }
         ],
         [
           { title: 'Agenda', icon: 'calendar_today', to: {name: 'agenda'}, exact: false }

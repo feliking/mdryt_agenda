@@ -1,12 +1,12 @@
 <template v-slot:top>
   <v-dialog v-model="dialog" max-width="500px" @keydown.enter="save()">
     <template v-slot:activator="{ on }">
-      <v-icon large v-on="on">add_circle</v-icon>
+      <v-icon large v-on="on" dark color="blue darken-3">add_circle</v-icon>
     </template>
     <v-card>
-      <v-card-title>
-        <span class="headline">{{ formTitle }}</span>
-      </v-card-title>
+       <v-toolbar dark color="blue darken-3">
+        <v-toolbar-title class="white--text">{{ formTitle }}</v-toolbar-title>
+      </v-toolbar>
       <v-card-text>
         <v-container>
           <v-form ref="form" v-model="valid" lazy-validation @submit.prevent>
@@ -18,6 +18,13 @@
                   :rules="[v => !!v || 'Requerido', v => (v && v.length <= 50) || 'No mayor a 50 caracteres']">
                 </v-text-field>
               </v-col>
+               <v-col cols="12">
+                <v-text-field 
+                  v-model="selectedItem.direccion" 
+                  label="Dirección"
+                  :rules="[v => !!v || 'Requerido']">
+                </v-text-field>
+              </v-col>
             </v-row>
           </v-form>
         </v-container>
@@ -25,8 +32,12 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-        <v-btn color="blue darken-1" :disabled="!valid" text @click="save()">Save</v-btn>
+        <!-- <v-btn color="error" text @click="close">Cancelar</v-btn>
+        <v-btn color="blue darken-1" :disabled="!valid" text @click="save()">Guardar</v-btn> -->
+
+        <v-btn color="error" small @click.native="close"><v-icon>close</v-icon> Cancelar</v-btn>
+        <v-btn color="blue darken-3" class="white--text" small :disabled="!valid" @click="save()" ><v-icon>check</v-icon> Guardar</v-btn>
+
       </v-card-actions>
     </v-card>
   </v-dialog>
