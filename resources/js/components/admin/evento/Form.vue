@@ -72,13 +72,11 @@
                 </v-text-field>
               </v-col>
               <v-col cols="12" md="6" sm="6">
-                <v-text-field 
-                  v-model="selectedItem.referencia_apoyo" 
-                  label="Referencia Apoyo"
-                  :rules="[v => !!v || 'Requerido']"
-                  hint="Requerido"
-                  persistent-hint>
-                </v-text-field>
+                <v-datetime-picker 
+                  label="Fecha y hora del evento" 
+                  v-model="datetime"
+                  dateFormat="dd-MM-yyyy"
+                ></v-datetime-picker>
               </v-col>
               <v-col cols="12" md="6" sm="6">
                 <v-text-field 
@@ -100,11 +98,71 @@
                 ></v-combobox>
               </v-col>
               <v-col cols="12" md="6" sm="6">
-                <v-datetime-picker 
-                  label="Fecha y hora del evento" 
-                  v-model="datetime"
-                  dateFormat="dd-MM-yyyy"
-                ></v-datetime-picker>
+                <h3>Referencia técnico de apoyo
+                  <v-dialog
+                    v-model="refe"
+                    width="500"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        color="red lighten-2"
+                        dark
+                        v-on="on"
+                        x-small
+                      >
+                        +
+                      </v-btn>
+                    </template>
+              
+                    <v-card>
+                      <v-card-text>
+                        <v-text-field 
+                          v-model="apoyo.nombre" 
+                          label="Nombre">
+                        </v-text-field>
+                        <v-text-field 
+                          v-model="apoyo.telefono" 
+                          label="Teléfono">
+                        </v-text-field>
+                        <v-text-field 
+                          v-model="apoyo.unidad" 
+                          label="Unidad">
+                        </v-text-field>
+                      </v-card-text>
+                      <v-divider></v-divider>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="primary"
+                          text
+                          @click="save_apoyo()"
+                        >
+                          Añadir
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </h3>
+                <v-simple-table>
+                  <template v-slot:default>
+                    <thead>
+                      <tr>
+                        <td>Nombre</td>
+                        <td>Teléfono</td>
+                        <td>Institución</td>
+                        <td></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(temp, index) in referencia" :key="index">
+                        <td>{{ temp.nombre }}</td>
+                        <td>{{ temp.telefono }}</td>
+                        <td>{{ temp.unidad }}</td>
+                        <td><v-icon small @click="removeApoyo(index)" flat icon color="red darken-3">delete </v-icon></td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
               </v-col>
               <v-col cols="12" md="6" sm="6">
                 <v-textarea
@@ -149,7 +207,9 @@ export default {
       sectores: [],
       sector: "",
       datetime: "",
-
+      referencia: [],
+      refe: false,
+      apoyo: {}
     };
   },
   created() {},  
@@ -210,6 +270,7 @@ export default {
               else{
                 this.selectedItem.delegado_id = delegado.data[0].id
               }
+              this.selectedItem.referencia_apoyo = JSON.stringify(this.referencia)
               this.selectedItem.fecha_hora = this.datetime
               await axios.post("api/evento", this.selectedItem)
             }
@@ -265,6 +326,14 @@ export default {
       catch(e){
         console.log(e)
       }
+    },
+    save_apoyo(){
+      this.referencia.push(this.apoyo)
+      this.apoyo = {}
+      this.refe = false
+    },
+    removeApoyo(index){
+      this.referencia.splice(index, 1);
     }
   },  
 };

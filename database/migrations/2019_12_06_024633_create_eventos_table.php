@@ -24,7 +24,7 @@ class CreateEventosTable extends Migration
             $table->foreign('sector_id')->references('id')->on('sectors');
             $table->string('nombre');
             $table->string('telefono');
-            $table->string('referencia_apoyo');
+            $table->jsonb('referencia_apoyo');
             $table->string('avanzada');
             $table->integer('delegado_id')->unsigned();
             $table->foreign('delegado_id')->references('id')->on('delegados');
