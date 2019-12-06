@@ -58,7 +58,26 @@
                   </tr>
                   <tr>
                     <td><strong>Referencia Técnico de apoyo: </strong></td>
-                    <td>{{ item.referencia_apoyo }}</td>
+                    <td>
+                      <v-simple-table>
+                        <template v-slot:default>
+                          <thead>
+                            <tr>
+                              <td>Nombre</td>
+                              <td>Teléfono</td>
+                              <td>Institución</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(temp, index) in item.referencia_apoyo" :key="index">
+                              <td>{{ temp.nombre }}</td>
+                              <td>{{ temp.telefono }}</td>
+                              <td>{{ temp.unidad }}</td>
+                            </tr>
+                          </tbody>
+                        </template>
+                      </v-simple-table>
+                    </td>
                   </tr>
                   <tr>
                     <td><strong>Avanzada: </strong></td>
@@ -155,7 +174,7 @@ export default {
       try {
         let res = await axios.get("api/evento")
         this.table = res.data;
-        console.log(this.table)
+        this.table.forEach( elem => elem.referencia_apoyo = JSON.parse(elem.referencia_apoyo))
         this.loading = false
       } catch (e) {
         console.log(e);
