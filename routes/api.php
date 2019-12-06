@@ -43,5 +43,6 @@ Route::group(['middleware' => ['jwt']], function() {
 
     Route::apiResource('evento', 'EventoController');
     Route::get('evento/fill/{param}', 'EventoController@fill');
+    Route::get('eventos/getAgendaDia','EventoController@getAgendaDia');
 });
 

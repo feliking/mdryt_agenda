@@ -33,7 +33,55 @@
       class="elevation-1"
       :loading="loading" 
       loading-text="Cargando... Espere por favor"
+      :single-expand="singleExpand"
+      :expanded.sync="expanded"
+      item-key="name"
+      show-expand
     >
+      <template v-slot:expanded-item="{ headers, item }">
+        <td :colspan="headers.length">
+          <v-card>
+            <v-simple-table>
+              <template v-slot:default>
+                <tbody>
+                  <tr>
+                    <td><strong>Sector: </strong></td>
+                    <td>{{ item.sector.nombre }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Nombre: </strong></td>
+                    <td>{{ item.nombre }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Teléfono: </strong></td>
+                    <td>{{ item.telefono }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Referencia Técnico de apoyo: </strong></td>
+                    <td>{{ item.referencia_apoyo }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Avanzada: </strong></td>
+                    <td>{{ item.avanzada }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Delegado: </strong></td>
+                    <td>{{ item.delegado.nombre }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Fecha y hora: </strong></td>
+                    <td>{{ item.fecha_hora }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Observaciones: </strong></td>
+                    <td>{{ item.observaciones }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card>
+        </td>
+      </template>
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)" flat icon color="indigo"> edit </v-icon>
         <v-icon small @click="removeItem(item)" flat icon color="red darken-3">delete </v-icon>
@@ -63,9 +111,13 @@ export default {
   data: () => ({
     bus: new Vue(),
     headers: [
+      { 
+        text: '', 
+        value: 'data-table-expand' 
+      },
       {
-        text: "Nombre",
-        value: "nombre",
+        text: "Institución",
+        value: "institucion.nombre",
         align: "center"
       },
       {
@@ -87,7 +139,9 @@ export default {
     ],
     table: [],
     search: "",
-    loading: true
+    loading: true,
+    expanded: [],
+    singleExpand: false,
   }),
   computed: {},
   mounted() {

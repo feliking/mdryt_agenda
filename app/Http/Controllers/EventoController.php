@@ -78,4 +78,7 @@ class EventoController extends Controller
         $request = json_decode($request, true);
         return Evento::where($request)->get();
     }
+    public function getAgendaDia(Request $request) {
+        return Evento::with('lugar', 'sector', 'delegado', 'institucion')->whereDate('fecha_hora',$request->query('fecha'))->get();
+    }
 }

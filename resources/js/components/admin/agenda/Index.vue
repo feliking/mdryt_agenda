@@ -2,7 +2,7 @@
 <v-container>
   <v-row>
     <v-col cols="3">
-          <v-btn class="mx-2" fab dark small color="blue darken-3">
+          <v-btn class="mx-2" fab dark small color="blue darken-3" v-on:click="substract()">
       <v-icon dark>keyboard_arrow_left</v-icon>
     </v-btn>
     </v-col>
@@ -24,30 +24,28 @@
             v-on="on"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+        <v-date-picker v-model="date" @input="menu2 = false" @change="getAgendaDia()"></v-date-picker>
       </v-menu>
     </v-col>
     <v-col cols="3">
-      <v-btn class="mx-2" fab dark small color="blue darken-3">
+      <v-btn class="mx-2" fab dark small color="blue darken-3" v-on:click="changeDate()">
       <v-icon dark>keyboard_arrow_right</v-icon>
   </v-btn>
     </v-col>
   </v-row>
-<v-timeline align-top dense>
-  <v-timeline-item color="blue darken-2" small>
+<v-timeline align-top dense v-if="eventos.length!=0">
+  <v-timeline-item v-for="evento in eventos" color="blue darken-2" small v-bind:key="evento.id">
     <v-card max-width="344">
-    <!-- <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="150px">
-    </v-img> -->
     <v-card-title>
-        REUNION DE COORDINACION CON DIGPROCOCA
+        {{evento.actividad}}
     </v-card-title>
     <v-card-subtitle>
-      lugar: salon gandarillas ministerio de desarrollo
+      lugar: {{evento.institucion.nombre}} - {{evento.institucion.direccion}}
       <br>
-      Fecha y hora: 10-10-2019 14:30
+      hora: {{evento.fecha_hora | moment("H:mm a")}}
     </v-card-subtitle>
     <v-card-actions>
-      <v-btn text>ver mas</v-btn>
+      Delegado: {{evento.delegado.nombre}}
       <v-spacer></v-spacer>
       <v-btn
         icon
@@ -59,13 +57,22 @@
       <div v-show="show">
         <v-divider></v-divider>
         <v-card-text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ratione numquam mollitia id magnam laborum expedita magni, eveniet, laboriosam minima, voluptas repellendus et sit? Deserunt minima laborum ipsum facere accusantium?
+          Sector: {{evento.sector.nombre}}
+          <br>
+          Lugar: {{evento.lugar.nombre}}
+          <br>
+          Telefono: {{evento.telefono}}
+          <br>
+          Observaciones: {{evento.observaciones}}
         </v-card-text>
       </div>
     </v-expand-transition>
   </v-card>
   </v-timeline-item>
 </v-timeline>
+<v-alert type="info" v-if="eventos.length==0">
+      No hay eventos para este dia .!
+</v-alert>
 </v-container>
   
 </template>
@@ -74,6 +81,7 @@ import Vue from "vue";
 import axios from 'axios'
 import RemoveItem from "../RemoveItem";
 import Form from "./Form";
+import moment from 'moment';
 
 export default {
   components: {
@@ -85,33 +93,35 @@ export default {
     show: false,
     search: "",
     loading: true,
-    date: new Date().toISOString().substr(0, 10),
+    eventos: [],
+    date: new moment().format('YYYY-MM-DD'),
       menu: false,
       menu2: false,
   }),
   computed: {},
   mounted() {
     this.getAgendaDia();
-    // this.bus.$on("closeDialog", () => {
-    //   this.getTable();
-    // });
   },
   methods: {
     async getAgendaDia() {
       try {
-        let res = await axios.get("api/evento")
-        this.table = res.data;
+        let res = await axios.get("api/eventos/getAgendaDia?fecha="+this.date)
+        this.eventos = res.data;
         this.loading = false
       } catch (e) {
         console.log(e);
       }
     },
-    editItem(item) {
-      this.bus.$emit("openDialog", item);
+    async changeDate() {
+      let newDate = new moment(this.date).add(1, 'days').format('YYYY-MM-DD'); 
+      this.date = newDate;
+      this.getAgendaDia();
     },
-    async removeItem(item) {
-      this.bus.$emit("openDialogRemove", `api/ciudad/${item.id}`);      
-    },
+    async substract() {
+      let newDate = new moment(this.date).add(-1, 'days').format('YYYY-MM-DD'); 
+      this.date = newDate;
+      this.getAgendaDia();
+    }
   }
 };
 </script>
